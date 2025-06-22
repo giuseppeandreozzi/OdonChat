@@ -1,0 +1,161 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Sfondo leggermente grigio per il body */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* O una larghezza fissa come 1000px */
+    //max-width: 1200px; /* Larghezza massima per desktop */
+    height: 100vh; /* Altezza dell'intera applicazione */
+    background-color: white;
+    border: 1px solid #ccc; /* Bordo leggero per l'intera app */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #e0e0e0; /* Grigio chiaro per l'header */
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+    color: #333;
+}
+
+.header-title {
+    font-size: 1.5em;
+}
+
+.header-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background-color: black; /* Avatars neri come nell'immagine */
+    border-radius: 50%;
+}
+
+.main-content {
+    display: flex;
+    flex: 1; /* Permette al contenuto principale di occupare lo spazio rimanente */
+}
+
+.sidebar {
+    width: 250px; /* Larghezza della sidebar sinistra */
+    border-right: 1px solid #ccc;
+    padding: 15px;
+    background-color: white; /* Sidebar bianca */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.sidebar-user-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #f8f8f8; /* Sfondo leggero per la card utente nella sidebar */
+    border-radius: 5px;
+}
+
+.sidebar-user-card .avatar {
+    width: 50px; /* Avatar più grande nella sidebar */
+    height: 50px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.user-message {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.chat-area {
+    flex: 1; /* Occupa lo spazio rimanente */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Sposta l'input in basso */
+    padding: 20px;
+    background-color: white; /* Area chat bianca */
+}
+
+.message-input-container {
+    display: flex;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #eee; /* Linea sopra il campo input */
+}
+
+.message-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Bordi arrotondati come nell'immagine */
+    font-size: 1em;
+    outline: none; /* Rimuove il bordo blu al focus */
+}
+
+.message-input::placeholder {
+    color: #aaa;
+}
+
+.send-button {
+    padding: 10px 20px;
+    background-color: #b0b0b0; /* Grigio del bottone Invio */
+    color: white;
+    border: none;
+    border-radius: 20px; /* Bordi arrotondati */
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.send-button:hover {
+    background-color: #909090; /* Effetto hover */
+}
+
+/* Media Queries per la responsività */
+@media (max-width: 768px) {
+    .app-container {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .main-content {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px; /* Più compatto sui mobile */
+    }
+
+    .header-user span {
+        display: none; /* Nasconde il nome utente nell'header su mobile */
+    }
+}

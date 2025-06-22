@@ -1,0 +1,83 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@section CSS {
+    <link rel="stylesheet" href="css/index.css">
+}
+
+<div class="main-centered-container">
+    <h1 class="app-title">OdonChat</h1>
+    <form class="login-form" asp-page="Index" asp-page-handler="Login">
+        <input name="username" type="text" placeholder="Usernamel" class="input-field">
+        <input name="password" type="password" placeholder="Password" class="input-field">
+        <div class="buttons-container">
+            <button type="submit" class="button login-button">Log in</button>
+            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#registrationModal">Registrati</button>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registrationModalLabel">Registrati</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="registrationForm" class="needs-validation" novalidate method="POST" asp-page="Index" asp-page-handler="Signup">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nome Utente:</label>
+                        <input type="text" class="form-control" id="username" name="username" required minlength="3">
+                        <div class="invalid-feedback">
+                            Il nome utente deve avere almeno 3 caratteri.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">E-mail:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                        <div class="invalid-feedback">
+                            Inserisci un indirizzo email valido.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" title="Almeno 8 caratteri, una maiuscola, una minuscola, un numero.">
+                        <div class="invalid-feedback">
+                            La password deve avere almeno 8 caratteri, una maiuscola, una minuscola e un numero.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Conferma Password:</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                        <div class="invalid-feedback" id="confirmPasswordFeedback">
+                            Le password non corrispondono.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="dob" class="form-label">Data di Nascita:</label>
+                        <input type="date" class="form-control" id="dob" name="birthDate" required>
+                        <div class="invalid-feedback" id="dobFeedback">
+                            Devi avere almeno 16 anni per registrarti.
+                        </div>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success btn-lg">Registrati</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section JS{
+    <script src="js/index.js"></script>
+}

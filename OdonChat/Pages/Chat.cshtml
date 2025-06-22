@@ -1,0 +1,37 @@
+﻿@page
+@model OdonChat.Pages.ChatModel
+@{
+    ViewData["Title"] = "Chat";
+}
+@section CSS {
+    <link rel="stylesheet" href="css/chat.css">
+}
+
+<div class="app-container">
+    <header class="header">
+        <div class="header-title">Titolo</div>
+        <div class="header-user">
+            <span>Nome</span>
+            <div class="avatar"></div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <aside class="sidebar">
+            <div class="sidebar-user-card">
+                <div class="avatar"></div>
+                <div class="user-info">
+                    <span class="user-name">Nome</span>
+                    <span class="user-message">Messaggio</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="chat-area">
+            <div class="message-input-container">
+                <input type="text" class="message-input" placeholder="Scrivi un messaggio...">
+                <button class="send-button">Invio</button>
+            </div>
+        </main>
+    </div>
+</div>
