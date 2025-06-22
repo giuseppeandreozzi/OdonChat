@@ -9,11 +9,15 @@
 
 <div class="app-container">
     <header class="header">
-        <div class="header-title">Titolo</div>
-        <div class="header-user">
-            <span>Nome</span>
-            <div class="avatar"></div>
-        </div>
+        <div class="header-title">OdonChat</div>
+        <a class="header-user dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <span>@User?.FindFirst("username")?.Value</span>
+            <img src="img/avatar.png" class="avatar"></img>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" asp-page="Account">Account</a></li>
+            <li><a class="dropdown-item" asp-page="Index" asp-page-handler="Logout">Logout</a></li>
+        </ul>
     </header>
 
     <div class="main-content">

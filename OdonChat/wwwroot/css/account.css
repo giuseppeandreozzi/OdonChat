@@ -1,0 +1,92 @@
+﻿body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* O una larghezza fissa come 1000px */
+    //max-width: 1200px; /* Larghezza massima per desktop */
+    height: 100vh; /* Altezza dell'intera applicazione */
+    background-color: white;
+    border: 1px solid #ccc; /* Bordo leggero per l'intera app */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #e0e0e0; /* Grigio chiaro per l'header */
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+    color: #333;
+}
+
+.header-title {
+    font-size: 1.5em;
+}
+
+.header-user {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background-color: black; /* Avatars neri come nell'immagine */
+    border-radius: 50%;
+}
+
+.profile-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.profile-card {
+    width: 300px;
+    border: 1px solid black;
+    background-color: white;
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: gray;
+    color: white;
+    padding: 10px 15px;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.card-body {
+    padding: 20px;
+    text-align: center;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    background-color: gray;
+    border-radius: 50%;
+    margin: 0 auto 20px auto;
+}
+
+.profile-detail {
+    margin: 8px 0;
+    font-size: 1.1em;
+    color: black;
+}

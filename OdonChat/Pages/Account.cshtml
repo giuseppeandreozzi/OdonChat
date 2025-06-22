@@ -1,0 +1,34 @@
+﻿@page
+@model OdonChat.Pages.AccountModel
+@section CSS {
+    <link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
+}
+
+
+
+<div class="app-container">
+    <header class="header">
+        <div class="header-title">OdonChat</div>
+        <a class="header-user dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <span>@User?.FindFirst("username")?.Value</span>
+            <img src="img/avatar.png" class="avatar"></img>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" asp-page="Account">Account</a></li>
+            <li><a class="dropdown-item" asp-page="Index" asp-page-handler="Logout">Logout</a></li>
+        </ul>
+    </header>
+    <div class="profile-page-container">
+        <div class="profile-card">
+            <div class="card-header">
+                <span>Personal Information</span>
+            </div>
+            <div class="card-body">
+                <div class="profile-avatar"></div>
+                <p class="profile-detail">Username: @Model.user.username</p>
+                <p class="profile-detail">E-mail: @Model.user.email</p>
+                <p class="profile-detail">Birth Date: @Model.user.birthDate.Date.ToString("dd/MM/yyyy")</p>
+            </div>
+        </div>
+    </div>
+</div>

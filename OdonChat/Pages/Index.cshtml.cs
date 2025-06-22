@@ -18,18 +18,25 @@ namespace OdonChat.Pages {
 			hasher = new PasswordHasher<User>();
 		}
 
+		public IActionResult OnGet() {
+			if (User.Identity.IsAuthenticated) {
+				return new RedirectToPageResult("Chat");
+			} else {
+				return Page();
+			}
+		}
 		public async Task<IActionResult> OnPostLogin(string username, string password) {
 			var usersQueryable = _usersCollection.AsQueryable();
-		
+
 			User user = usersQueryable.Where(user => user.username == username).FirstOrDefault();
 
 			if (user != null) {
 				var result = hasher.VerifyHashedPassword(user, user.password, password);
 				if (result == PasswordVerificationResult.Success) {
-					var claims = new List<Claim>{
-						new Claim("username", user.username),
-						new Claim("id", user.id.ToString())
-					};
+					var claims = new List<Claim> {
+								new Claim("username", user.username),
+								new Claim("id", user.id.ToString())
+							};
 					var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 					AuthenticationProperties authProperties = new AuthenticationProperties { };
 					await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
@@ -46,6 +53,14 @@ namespace OdonChat.Pages {
 			user.password = hasher.HashPassword(user, pass);
 
 			await _usersCollection.InsertOneAsync(user);
+		}
+
+		public async Task<IActionResult> OnGetLogout() {
+			if (User.Identity.IsAuthenticated) {
+				await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+			}
+
+			return new RedirectToPageResult("Index");
 		}
 	}
 }
