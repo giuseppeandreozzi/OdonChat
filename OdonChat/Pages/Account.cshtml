@@ -9,11 +9,11 @@
 <div class="app-container">
     <header class="header">
         <div class="header-title">OdonChat</div>
-        <a class="header-user dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="btn btn-secondary dropdown-toggle" type="button" id="navButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span>@User?.FindFirst("username")?.Value</span>
             <img src="img/avatar.png" class="avatar"></img>
         </a>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu" aria-labelledby="navButton">
             <li><a class="dropdown-item" asp-page="Account">Account</a></li>
             <li><a class="dropdown-item" asp-page="Index" asp-page-handler="Logout">Logout</a></li>
         </ul>

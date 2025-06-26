@@ -10,11 +10,17 @@
 <div class="app-container">
     <header class="header">
         <div class="header-title">OdonChat</div>
-        <a class="header-user dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="dropdown input-group">
+            <input type="text" class="form-control" id="searchInput" placeholder="Cerca...">
+            <button id="searchButton" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Cerca</button>
+            <ul class="dropdown-menu" id="searchResults" style="width: 100%;">
+            </ul>
+        </div>
+        <a class="btn btn-secondary dropdown-toggle" type="button" id="navButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span>@User?.FindFirst("username")?.Value</span>
             <img src="img/avatar.png" class="avatar"></img>
         </a>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu" aria-labelledby="navButton">
             <li><a class="dropdown-item" asp-page="Account">Account</a></li>
             <li><a class="dropdown-item" asp-page="Index" asp-page-handler="Logout">Logout</a></li>
         </ul>
@@ -22,6 +28,7 @@
 
     <div class="main-content">
         <aside class="sidebar">
+            <!-- to remove later
             <div class="sidebar-user-card">
                 <div class="avatar"></div>
                 <div class="user-info">
@@ -29,6 +36,7 @@
                     <span class="user-message">Messaggio</span>
                 </div>
             </div>
+            -->
         </aside>
 
         <main class="chat-area">
@@ -39,3 +47,8 @@
         </main>
     </div>
 </div>
+
+@section JS{
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/chat.js"></script>
+}

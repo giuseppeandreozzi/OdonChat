@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.SignalR;
 using MongoDB.Driver;
+using OdonChat.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +10,11 @@ var client = new MongoClient(connectionString);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddSignalR(e => {
+	e.EnableDetailedErrors = true;
+});
 builder.Services.AddSingleton<IMongoDatabase>(client.GetDatabase("OdonChat"));
+builder.Services.AddSingleton<IUserIdProvider, UsernameBasedUserIdProvider>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 	.AddCookie(options => {
@@ -37,5 +43,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();

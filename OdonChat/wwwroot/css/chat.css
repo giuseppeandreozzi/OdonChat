@@ -50,7 +50,8 @@ body {
 
 .main-content {
     display: flex;
-    flex: 1; /* Permette al contenuto principale di occupare lo spazio rimanente */
+    flex: 1;
+    border-top: 1px solid #ccc;
 }
 
 .sidebar {
@@ -72,10 +73,10 @@ body {
     border-radius: 5px;
 }
 
-.sidebar-user-card .avatar {
-    width: 50px; /* Avatar più grande nella sidebar */
-    height: 50px;
-}
+    .sidebar-user-card .avatar {
+        width: 50px; /* Avatar più grande nella sidebar */
+        height: 50px;
+    }
 
 .user-info {
     display: flex;
@@ -117,9 +118,9 @@ body {
     outline: none; /* Rimuove il bordo blu al focus */
 }
 
-.message-input::placeholder {
-    color: #aaa;
-}
+    .message-input::placeholder {
+        color: #aaa;
+    }
 
 .send-button {
     padding: 10px 20px;
@@ -132,10 +133,23 @@ body {
     transition: background-color 0.2s ease;
 }
 
-.send-button:hover {
-    background-color: #909090; /* Effetto hover */
+    .send-button:hover {
+        background-color: #909090; /* Effetto hover */
+    }
+
+.input-group {
+    position: relative;
+    max-width: 50vw;
+    margin: 0 auto;
 }
 
+/* Stile per il messaggio "Nessun risultato" */
+.dropdown-menu .no-results {
+    padding: 0.5rem 1rem;
+    color: #6c757d;
+    font-style: italic;
+    text-align: center;
+}
 /* Media Queries per la responsività */
 @media (max-width: 768px) {
     .app-container {
