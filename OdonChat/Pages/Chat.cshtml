@@ -16,11 +16,11 @@
             <ul class="dropdown-menu" id="searchResults" style="width: 100%;">
             </ul>
         </div>
-        <a class="btn btn-secondary dropdown-toggle" type="button" id="navButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="navButton" data-bs-toggle="dropdown" aria-expanded="false">
             <span>@User?.FindFirst("username")?.Value</span>
             <img src="img/avatar.png" class="avatar"></img>
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navButton">
+        </button>
+        <ul class="dropdown-menu">
             <li><a class="dropdown-item" asp-page="Account">Account</a></li>
             <li><a class="dropdown-item" asp-page="Index" asp-page-handler="Logout">Logout</a></li>
         </ul>
