@@ -18,7 +18,7 @@
         </div>
         <button class="btn btn-secondary dropdown-toggle" type="button" id="navButton" data-bs-toggle="dropdown" aria-expanded="false">
             <span>@User?.FindFirst("username")?.Value</span>
-            <img src="img/avatar.png" class="avatar"></img>
+            <img src="img/avatar.png" class="avatar"/>
         </button>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" asp-page="Account">Account</a></li>
@@ -28,22 +28,32 @@
 
     <div class="main-content">
         <aside class="sidebar">
-            <!-- to remove later
-            <div class="sidebar-user-card">
-                <div class="avatar"></div>
-                <div class="user-info">
-                    <span class="user-name">Nome</span>
-                    <span class="user-message">Messaggio</span>
+            @foreach(var chat in Model.chats){
+                <div class="sidebar-user-card" id="card-@chat.Value" onclick="showChat(this)">
+                    <div class="avatar"></div>
+                    <div class="user-info">
+                        <span class="user-name">@chat.Key</span>
+                        <!-- <span class="user-message">Messaggio</span> -->
+                    </div>
                 </div>
-            </div>
-            -->
+            }
         </aside>
 
         <main class="chat-area">
-            <div class="message-input-container">
-                <input type="text" class="message-input" placeholder="Scrivi un messaggio...">
-                <button class="send-button">Invio</button>
-            </div>
+            @foreach (var el in Model.messages) {
+                <div class="message-input-container" id="@el.id">
+                     <div>
+                        @foreach (var message in el.messages) {
+                            <p class="@(message.userFrom == User.FindFirst("username").Value ? "message-sended" : "message-received")">@message.text</p>
+                        }
+                     </div>
+                        <div class="input-chat">
+                        <input type="text" class="message-input" placeholder="Scrivi un messaggio...">
+                        <button class="send-button">Invio</button>
+                    
+                    </div>
+                </div>
+            }
         </main>
     </div>
 </div>

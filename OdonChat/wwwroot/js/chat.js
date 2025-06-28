@@ -68,3 +68,24 @@ button.addEventListener("click", (event) => {
 });
 
 
+//TEST
+var button = document.querySelector(".send-button");
+var inputChat = document.querySelector(".message-input");
+
+button.addEventListener("click", (event) => {
+    event.preventDefault();
+    connection.invoke("SendMessage", "Scarlet213", inputChat.value, new Date().toJSON()).catch(function (err) {
+        return console.error(err.toString());
+    });
+});
+
+function showChat(el) {
+    var id = el.id.substr(5);
+    var divToHide = document.querySelector("div.show-chat");
+    var divToShow = document.getElementById(id);
+
+    if(divToHide != null)
+        divToHide.classList.remove("show-chat");
+
+    divToShow.classList.add("show-chat");
+}
