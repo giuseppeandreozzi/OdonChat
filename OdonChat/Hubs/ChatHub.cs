@@ -20,16 +20,18 @@ namespace OdonChat.Hubs {
 
 
 			await Clients.User(Context.User.FindFirst("username").Value).SendAsync("ReceiveUser", (user2 == null) ? null : new {
-				username = user2.username
+				username = user2.username,
+				id = user2.id.ToString()
 			});
 		}
 
 		public async Task SendMessage(string usernameTo, string textMessage, string timeMessage) {
 			OdonChat.model.User userFrom = _users.AsQueryable().Where(u => u.username == Context.User.FindFirst("username").Value).FirstOrDefault();
+			Chat chat = new Chat();
 
 			if (userFrom.chats != null && userFrom.chats.ContainsKey(usernameTo)) {
 				string idChat = userFrom.chats[usernameTo];
-				Chat chat = _chat.AsQueryable().Where(c => c.id.ToString() == idChat).FirstOrDefault();
+				chat = _chat.AsQueryable().Where(c => c.id.ToString() == idChat).FirstOrDefault();
 				chat.messages.Add(new Message {
 					userFrom = userFrom.username,
 					text = textMessage,
@@ -41,7 +43,6 @@ namespace OdonChat.Hubs {
 				var update = Builders<Chat>.Update.Set(c => c.messages, chat.messages);
 				_chat.UpdateOne(filter, update);
 			} else {
-				Chat chat = new Chat();
 				var messages = new List<Message>();
 				messages.Add(new Message {
 					userFrom = userFrom.username,
@@ -56,8 +57,6 @@ namespace OdonChat.Hubs {
 
 				//set the chat on the users
 				OdonChat.model.User userTo = _users.AsQueryable().Where(u => u.username == usernameTo).FirstOrDefault();
-				userTo.chats = new Dictionary<string, string>();
-				userFrom.chats = new Dictionary<string, string>();
 				userTo.chats.Add(userFrom.username, chat.id.ToString());
 				userFrom.chats.Add(userTo.username, chat.id.ToString());
 
@@ -69,7 +68,17 @@ namespace OdonChat.Hubs {
 				update = Builders<User>.Update.Set(c => c.chats, userFrom.chats);
 				_users.UpdateOne(filter, update);
 			}
-		}
+
+			await Clients.User(usernameTo).SendAsync("ReceiveMessage", new {
+				message = textMessage,
+				chatId = chat.id.ToString(),
+				usernameFrom = userFrom.username,
+				userFromId = userFrom.id.ToString()
+			});
+
+		} //end SendMessage
+
+
 	}
 
 	public class UsernameBasedUserIdProvider : IUserIdProvider {

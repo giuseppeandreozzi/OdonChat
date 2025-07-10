@@ -23,6 +23,9 @@ namespace OdonChat.Pages {
 			//gettings the chat id of the user
 			chats = _users.AsQueryable().Where(u => u.id.ToString() == User.FindFirst("id").Value).Select(u => u.chats).FirstOrDefault();
 
+			if (chats == null)
+				return;
+
 			//getting the content of messages of the user
 			foreach (var item in chats) {
 				messages.Add(_chats.AsQueryable().Where(c => c.id.ToString() == item.Value).FirstOrDefault());

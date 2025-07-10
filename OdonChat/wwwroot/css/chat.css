@@ -182,6 +182,10 @@ p.message-received {
     display: flex;
 }
 
+.selected{
+    background-color: saddlebrown;
+}
+
 @media (max-width: 768px) {
     .app-container {
         width: 100%;

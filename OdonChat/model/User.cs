@@ -7,6 +7,6 @@ namespace OdonChat.model {
 		public string password { get; set; }
 		public string email { get; set; }
 		public DateTime birthDate { get; set; }
-		public Dictionary<string, string> chats { get; set; }
+		public Dictionary<string, string> chats { get; set; } = new Dictionary<string, string>();
 	}
 }

@@ -42,14 +42,14 @@
         <main class="chat-area">
             @foreach (var el in Model.messages) {
                 <div class="message-input-container" id="@el.id">
-                     <div>
+                    <div class="messages">
                         @foreach (var message in el.messages) {
                             <p class="@(message.userFrom == User.FindFirst("username").Value ? "message-sended" : "message-received")">@message.text</p>
                         }
-                     </div>
-                        <div class="input-chat">
-                        <input type="text" class="message-input" placeholder="Scrivi un messaggio...">
-                        <button class="send-button">Invio</button>
+                    </div>
+                    <div class="input-chat">
+                        <input type="text" class="message-input" placeholder="Write a message...">
+                        <button class="send-button" onclick="sendMessage(this.parentElement.parentElement)">Send</button>
                     
                     </div>
                 </div>
