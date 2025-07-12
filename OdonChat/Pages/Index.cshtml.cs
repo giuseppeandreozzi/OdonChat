@@ -12,6 +12,16 @@ namespace OdonChat.Pages {
 		private readonly ILogger<IndexModel> _logger;
 		private IMongoCollection<User> _usersCollection;
 		PasswordHasher<User> hasher;
+
+		[BindProperty]
+		public User user { get; set; }
+
+		[BindProperty]
+		public string pass2 { get; set; }
+
+		[BindProperty]
+		public DataLogin login { get; set; }
+
 		public IndexModel(ILogger<IndexModel> logger, IMongoDatabase db) {
 			_logger = logger;
 			_usersCollection = db.GetCollection<User>("Users");
@@ -25,13 +35,13 @@ namespace OdonChat.Pages {
 				return Page();
 			}
 		}
-		public async Task<IActionResult> OnPostLogin(string username, string password) {
+		public async Task<IActionResult> OnPostLogin() {
 			var usersQueryable = _usersCollection.AsQueryable();
 
-			User user = usersQueryable.Where(user => user.username == username).FirstOrDefault();
+			User user = usersQueryable.Where(user => user.username == login.username).FirstOrDefault();
 
 			if (user != null) {
-				var result = hasher.VerifyHashedPassword(user, user.password, password);
+				var result = hasher.VerifyHashedPassword(user, user.password, login.password);
 				if (result == PasswordVerificationResult.Success) {
 					var claims = new List<Claim> {
 								new Claim("username", user.username),
@@ -43,16 +53,28 @@ namespace OdonChat.Pages {
 					return new RedirectToPageResult("Chat");
 				}
 			}
+			
+			ModelState.AddModelError("", "Username or Password incorrect");
 
 			return Page();
 		}
 
-		public async void OnPostSignup(User user) {
+		public async Task<IActionResult> OnPostSignup() {
+			if (user.password != pass2) {
+				ModelState.AddModelError("pass2", "The passwords must coincide.");
+			}
+
+			if (!ModelState.IsValid) {
+				return Page();
+			}
+
 			string pass = user.password;
 			user.password = null;
 			user.password = hasher.HashPassword(user, pass);
 
 			await _usersCollection.InsertOneAsync(user);
+
+			return Page();
 		}
 
 		public async Task<IActionResult> OnGetLogout() {
@@ -63,4 +85,6 @@ namespace OdonChat.Pages {
 			return new RedirectToPageResult("Index");
 		}
 	}
+
+	public record DataLogin(string username, string password);
 }

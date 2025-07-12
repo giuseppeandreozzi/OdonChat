@@ -9,7 +9,10 @@ var connectionString = builder.Configuration["DB_URL"];
 var client = new MongoClient(connectionString);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().AddMvcOptions(options => {
+	options.MaxModelValidationErrors = 1;
+});
+
 builder.Services.AddSignalR(e => {
 	e.EnableDetailedErrors = true;
 });

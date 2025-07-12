@@ -8,6 +8,11 @@
     min-height: 100vh; 
 }
 
+.error {
+    color: red;
+
+}
+
 .main-centered-container {
     display: flex;
     flex-direction: column; 
