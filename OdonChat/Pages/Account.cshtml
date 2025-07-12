@@ -12,7 +12,7 @@
 
         <button class="btn btn-secondary dropdown-toggle" type="button" id="navButton" data-bs-toggle="dropdown" aria-expanded="false">
             <span>@User?.FindFirst("username")?.Value</span>
-            <img src="img/avatar.png" class="avatar"></img>
+            <img src="data:image/*;base64,@Convert.ToBase64String(Model.user.image)" onerror="this.src='img/avatar.png'" class="avatar">
         </button>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" asp-page="Account">Account</a></li>
@@ -25,7 +25,13 @@
                 <span>Personal Information</span>
             </div>
             <div class="card-body">
-                <div class="profile-avatar"></div>
+                <form asp-page="Account" asp-page-handler="ChangeAvatar" enctype="multipart/form-data" class="upload-form">
+                    <div class="container">
+                        <img id="avatar" src="data:image/*;base64,@Convert.ToBase64String(Model.user.image)" onerror="this.src='img/avatar.png'" class="profile-avatar">
+                        <input type="file" id="photo-upload" name="avatar" accept="image/*">
+                    </div>
+                    <input type="submit" value="Invia Foto" id="submit-button">
+                </form>
                 <p class="profile-detail">Username: @Model.user.username</p>
                 <p class="profile-detail">E-mail: @Model.user.email</p>
                 <p class="profile-detail">Birth Date: @Model.user.birthDate.Date.ToString("dd/MM/yyyy")</p>
@@ -33,3 +39,7 @@
         </div>
     </div>
 </div>
+
+@section JS{
+    <script src="~/js/account.js"></script>
+}

@@ -11,7 +11,7 @@ connection.on("ReceiveMessage", (message) => {
         divMessages = document.querySelector("[id='" + message.userFromId + "'] .messages");
 
         if (card == null) { 
-            createChat(message.userFromId, message.usernameFrom);
+            createChat(message.userFromId, message.usernameFrom, message.avatar);
             card = document.querySelector("#card-" + message.userFromId);
             divMessages = document.querySelector("[id='" + message.userFromId + "'] .messages");
         }
@@ -53,7 +53,7 @@ connection.on("ReceiveUser", (user) => {
         searchResultsUl.classList.remove('show');
         searchInput.focus();
 
-        createChat(user.id, user.username);
+        createChat(user.id, user.username, user.avatar);
         searchResultsUl.innerHTML = '';
         searchInput.value = '';
     });
@@ -130,15 +130,17 @@ function showChat(el) {
     el.classList.add("selected");
 }
 
-function createChat(userId, username) {
+function createChat(userId, username, avatar) {
     const divCard = document.createElement('div');
-    const img = document.createElement('div');
+    const img = document.createElement('img');
     const divInfo = document.createElement('div');
     const spanUsername = document.createElement('span');
 
     divCard.classList.add('sidebar-user-card');
     divCard.id = "card-" + userId;
     img.classList.add('avatar');
+    img.src = "data:image/*;Base64," + avatar;
+    img.onerror = "this.src='img/avatar.png'";
     divInfo.classList.add('user-info');
     spanUsername.classList.add('user-name');
     spanUsername.innerHTML = username;

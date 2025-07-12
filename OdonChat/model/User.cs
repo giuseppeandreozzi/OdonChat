@@ -14,6 +14,8 @@ namespace OdonChat.model {
 		[Required]
 		public string password { get; set; }
 
+		public byte[] image { get; set; } = Array.Empty<byte>();
+
 		[Required]
 		[EmailAddress]
 		[UniqueEmail]

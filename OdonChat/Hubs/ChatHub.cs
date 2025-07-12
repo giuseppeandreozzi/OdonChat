@@ -21,7 +21,8 @@ namespace OdonChat.Hubs {
 
 			await Clients.User(Context.User.FindFirst("username").Value).SendAsync("ReceiveUser", (user2 == null) ? null : new {
 				username = user2.username,
-				id = user2.id.ToString()
+				id = user2.id.ToString(),
+				avatar = Convert.ToBase64String(user2.image)
 			});
 		}
 
@@ -73,7 +74,8 @@ namespace OdonChat.Hubs {
 				message = textMessage,
 				chatId = chat.id.ToString(),
 				usernameFrom = userFrom.username,
-				userFromId = userFrom.id.ToString()
+				userFromId = userFrom.id.ToString(),
+				avatar = Convert.ToBase64String(userFrom.image)
 			});
 
 		} //end SendMessage
