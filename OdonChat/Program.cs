@@ -21,20 +21,19 @@ builder.Services.AddSingleton<IUserIdProvider, UsernameBasedUserIdProvider>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 	.AddCookie(options => {
-        options.Cookie.SameSite = SameSiteMode.Strict;
-        options.Cookie.HttpOnly = true;
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-        options.AccessDeniedPath = "/";
-        options.LoginPath = "/";
-    });
+		options.Cookie.SameSite = SameSiteMode.Strict;
+		options.Cookie.HttpOnly = true;
+		options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+		options.AccessDeniedPath = "/";
+		options.LoginPath = "/";
+	});
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-    app.UseHsts();
+if (!app.Environment.IsDevelopment()) {
+	app.UseExceptionHandler("/Error");
+	app.UseHsts();
 }
 
 app.UseHttpsRedirection();
