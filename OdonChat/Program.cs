@@ -8,7 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration["DB_URL"];
 var client = new MongoClient(connectionString);
 
-// Add services to the container.
 builder.Services.AddRazorPages().AddMvcOptions(options => {
 	options.MaxModelValidationErrors = 1;
 });
@@ -24,18 +23,18 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 		options.Cookie.SameSite = SameSiteMode.Strict;
 		options.Cookie.HttpOnly = true;
 		options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-		options.AccessDeniedPath = "/";
+		options.AccessDeniedPath = "/Error";
 		options.LoginPath = "/";
 	});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment()) {
 	app.UseExceptionHandler("/Error");
 	app.UseHsts();
 }
 
+app.UseStatusCodePagesWithReExecute("/Error/{0}");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
