@@ -2,6 +2,19 @@
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
+document.addEventListener('DOMContentLoaded', () => {
+    var inputs = document.querySelectorAll(".message-input");
+
+    for (let input of inputs) {
+        input.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter' || event.keyCode === 13) {
+                event.preventDefault();
+                sendMessage(input.parentElement.parentElement);
+            }
+        });
+    }
+});
+
 connection.on("ReceiveMessage", (message) => {
     var divMessages = document.querySelector("[id='" + message.chatId + "'] .messages");
     var card = document.querySelector("#card-" + message.chatId);
@@ -30,9 +43,9 @@ connection.on("ReceiveUser", (user) => {
     const searchInput = document.getElementById('searchInput');
     const searchResultsUl = document.getElementById('searchResults'); 
     const inputGroup = searchInput.closest('.input-group'); 
+    searchResultsUl.innerHTML = '';
 
     if (user == null) {
-        searchResultsUl.innerHTML = '';
         const li = document.createElement('li');
         const noResultsDiv = document.createElement('div');
         noResultsDiv.classList.add('no-results');
@@ -70,6 +83,13 @@ connection.start().then(function () {
 
 var input = document.querySelector("#searchInput");
 var button = document.querySelector("#searchButton");
+
+input.addEventListener('keypress', function (event) {
+    if (event.key === 'Enter' || event.keyCode === 13) {
+        event.preventDefault();
+        button.click();
+    }
+});
 
 button.addEventListener("click", (event) => {
     event.preventDefault();
@@ -168,6 +188,15 @@ function createChat(userId, username, avatar) {
     input.placeholder = "Write a message...";
 
     const button = document.createElement("button");
+
+    //pressing Enter inside the input to send a message
+    input.addEventListener('keypress', function (event) {
+        if (event.key === 'Enter' || event.keyCode === 13) {
+            event.preventDefault();
+            button.click();
+        }
+    });
+
     button.classList.add("send-button");
     button.onclick = () => { sendMessage(divChat) };
     button.textContent = "Send";
