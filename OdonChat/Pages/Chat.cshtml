@@ -9,8 +9,10 @@
 
 <div class="app-container">
     <header class="header">
-        <img src="~/img/logo.png" class="logo"/>
-        <div class="header-title">OdonChat</div>
+        <a class="goHomeButton" asp-page="Index">
+            <img src="~/img/logo.png" class="logo"/>
+            <div class="header-title">OdonChat</div>
+        </a>
         <div class="dropdown input-group">
             <input type="text" class="form-control" id="searchInput" placeholder="Search an user...">
             <button id="searchButton" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Cerca</button>

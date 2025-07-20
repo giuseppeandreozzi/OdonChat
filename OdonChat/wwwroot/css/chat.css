@@ -32,6 +32,7 @@ body {
 
 .header-title {
     font-size: 1.5em;
+    margin: auto 0 auto 0;
 }
 
 .header-user {
@@ -232,6 +233,16 @@ p.message-received {
 #searchResults li a:hover {
     background-color: #007ACC;
 }
+
+.goHomeButton {
+    text-decoration: none;
+    display: flex;
+    color: inherit;
+}
+
+    .goHomeButton:hover {
+        color: inherit !important;
+    }
 
 @media (max-width: 768px) {
     .app-container {
