@@ -9,9 +9,10 @@
 
 <div class="app-container">
     <header class="header">
+        <img src="~/img/logo.png" class="logo"/>
         <div class="header-title">OdonChat</div>
         <div class="dropdown input-group">
-            <input type="text" class="form-control" id="searchInput" placeholder="Cerca...">
+            <input type="text" class="form-control" id="searchInput" placeholder="Search an user...">
             <button id="searchButton" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Cerca</button>
             <ul class="dropdown-menu" id="searchResults" style="width: 100%;">
             </ul>
@@ -20,7 +21,7 @@
             <span>@User?.FindFirst("username")?.Value</span>
             <img src="data:image/*;base64,@Convert.ToBase64String(Model.avatar)" onerror="this.src='img/avatar.png'" class="avatar"/>
         </button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu" id="userBar">
             <li><a class="dropdown-item" asp-page="Account">Account</a></li>
             <li><a class="dropdown-item" asp-page="Index" asp-page-handler="Logout">Logout</a></li>
         </ul>

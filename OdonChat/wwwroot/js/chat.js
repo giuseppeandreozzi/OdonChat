@@ -49,7 +49,7 @@ connection.on("ReceiveUser", (user) => {
         const li = document.createElement('li');
         const noResultsDiv = document.createElement('div');
         noResultsDiv.classList.add('no-results');
-        noResultsDiv.textContent = 'Nessun risultato trovato';
+        noResultsDiv.textContent = 'No user found';
         li.appendChild(noResultsDiv);
         searchResultsUl.appendChild(li);
         return;

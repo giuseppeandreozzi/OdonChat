@@ -60,11 +60,12 @@ namespace OdonChat.Pages {
 		}
 
 		public async Task<IActionResult> OnPostSignup() {
+			ModelState.Clear();
 			if (user.password != pass2) {
 				ModelState.AddModelError("pass2", "The passwords must coincide.");
 			}
 
-			if (!ModelState.IsValid) {
+			if (!TryValidateModel(user) && !TryValidateModel(pass2)) {
 				return Page();
 			}
 

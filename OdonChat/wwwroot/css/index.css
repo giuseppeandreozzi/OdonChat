@@ -1,16 +1,15 @@
 ﻿body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #fcfcfc;
+    background-color: #1A1A1A;
     display: flex;
-    justify-content: center; 
-    align-items: center; 
-    min-height: 100vh; 
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .error {
-    color: red;
-
+    color: #FF5252;
 }
 
 .main-centered-container {
@@ -22,10 +21,16 @@
 
 .app-title {
     font-family: 'Segoe UI', sans-serif;
-    font-size: 3em; 
-    color: #333;
-    margin-bottom: 40px; 
-    text-align: center; 
+    font-size: 3em;
+    color: #E0E0E0;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.logo {
+    width: auto;
+    max-height: 122px;
+    margin: 0 auto 5px auto;
 }
 
 .login-form {
@@ -37,22 +42,24 @@
 }
 
 .input-field {
-    width: 100%; 
+    width: 100%;
     padding: 12px 15px;
-    margin-bottom: 20px; 
-    border: 1px solid #ccc;
-    border-radius: 20px; 
+    margin-bottom: 20px;
+    border: 2px solid #444444;
+    border-radius: 20px;
     font-size: 1.1em;
-    outline: none; 
-    box-sizing: border-box; 
+    outline: none;
+    box-sizing: border-box;
+    background-color: #2D2D2D;
+    color: #E0E0E0;
 }
 
     .input-field::placeholder {
-        color: #aaa;
+        color: #A0A0A0;
     }
 
     .input-field:focus {
-        border-color: #999; 
+        border-color: #007ACC;
     }
 
 .buttons-container {
@@ -73,24 +80,31 @@
 }
 
 .login-button {
-    background-color: #f7d9e1; 
-    color: #333; 
-    border: 1px solid #f7d9e1; 
+    background-color: #0D6E76;
+    color: #E0E0E0;
+    border: 2px solid #444444;
 }
 
     .login-button:hover {
-        background-color: #f2c7d1; 
+        background-color: #21828A;
     }
 
-.register-button {
-    background-color: transparent; 
-    color: #333; 
-    border: 1px solid transparent; 
+.modal-content {
+    background-color: #2D2D2D;
+    color: #E0E0E0;
 }
 
-    .register-button:hover {
-        text-decoration: underline; 
-        color: #555;
+.modal-body input {
+    background-color: #2A2A2A;
+    color: #E0E0E0;
+    border: 2px solid #444444;
+}
+
+    .modal-body input:focus {
+        color: #E0E0E0;
+        background-color: #2A2A2A;
+        box-shadow: 0 0 0 0.05rem #007ACC;
+        border-color: #007ACC;
     }
 
 @media (max-width: 480px) {

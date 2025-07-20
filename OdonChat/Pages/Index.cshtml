@@ -9,6 +9,7 @@
 }
 
 <div class="main-centered-container">
+    <img src="~/img/logo.png" class="logo"/>
     <h1 class="app-title">OdonChat</h1>
     <form class="login-form" asp-page="Index" asp-page-handler="Login">
         <input asp-for="login.username" type="text" placeholder="Username" class="input-field">
@@ -18,7 +19,7 @@
         <div asp-validation-summary="ModelOnly" class="error"></div>
         <div class="buttons-container">
             <button type="submit" class="button login-button">Log in</button>
-            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#registrationModal">Registrati</button>
+            <button type="button" class="btn btn-primary btn-lg login-button" data-bs-toggle="modal" data-bs-target="#registrationModal">Registrati</button>
         </div>
     </form>
 </div>
@@ -63,7 +64,7 @@
                     </div>
 
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-success btn-lg">Sign up</button>
+                        <button type="submit" class="btn btn-success btn-lg login-button">Sign up</button>
                     </div>
                 </form>
             </div>

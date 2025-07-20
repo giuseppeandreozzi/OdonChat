@@ -8,13 +8,14 @@
 
 <div class="app-container">
     <header class="header">
+        <img src="~/img/logo.png" class="logo" />
         <div class="header-title">OdonChat</div>
 
         <button class="btn btn-secondary dropdown-toggle" type="button" id="navButton" data-bs-toggle="dropdown" aria-expanded="false">
             <span>@User?.FindFirst("username")?.Value</span>
             <img src="data:image/*;base64,@Convert.ToBase64String(Model.user.image)" onerror="this.src='img/avatar.png'" class="avatar">
         </button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu" id="userBar">
             <li><a class="dropdown-item" asp-page="Account">Account</a></li>
             <li><a class="dropdown-item" asp-page="Index" asp-page-handler="Logout">Logout</a></li>
         </ul>

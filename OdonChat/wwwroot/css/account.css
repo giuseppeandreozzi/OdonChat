@@ -1,7 +1,7 @@
 ﻿body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: white;
+    background-color: #1A1A1A;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,23 +11,22 @@
 .app-container {
     display: flex;
     flex-direction: column;
-    width: 100%; /* O una larghezza fissa come 1000px */
-    //max-width: 1200px; /* Larghezza massima per desktop */
-    height: 100vh; /* Altezza dell'intera applicazione */
-    background-color: white;
-    border: 1px solid #ccc; /* Bordo leggero per l'intera app */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+    width: 100%; 
+    /*max-width: 1200px;*/
+    height: 100vh;
+    background-color: #1A1A1A;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .header {
     display: flex;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     align-items: center;
     padding: 10px 20px;
-    background-color: #e0e0e0; /* Grigio chiaro per l'header */
-    border-bottom: 1px solid #ccc;
+    background-color: #2D2D2D;
+    border-bottom: 1px solid #444444;
     font-weight: bold;
-    color: #333;
+    color: #E0E0E0;
 }
 
 .header-title {
@@ -44,8 +43,12 @@
 .avatar {
     width: 40px;
     height: 40px;
-    background-color: black; /* Avatars neri come nell'immagine */
     border-radius: 50%;
+}
+
+.logo {
+    width: auto;
+    height: 60px;
 }
 
 .profile-page-container {
@@ -58,29 +61,30 @@
 
 .profile-card {
     width: 300px;
-    border: 1px solid black;
-    background-color: white;
+    border: 1px solid #444444;
+    background-color: #2D2D2D;
     overflow: hidden;
 }
 
 .card-header {
-    background-color: gray;
-    color: white;
+    background-color: #2D2D2D;
+    color: #E0E0E0;
     padding: 10px 15px;
     font-weight: bold;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #444444;
     text-align: center;
 }
 
 .card-body {
     padding: 20px;
     text-align: center;
+    background-color: #555555;
+    color: #F0F0F0;
 }
 
 .profile-avatar {
     width: 100px;
     height: 100px;
-    background-color: gray;
     border-radius: 50%;
     margin: 0 auto 20px auto;
 }
@@ -88,7 +92,6 @@
 .profile-detail {
     margin: 8px 0;
     font-size: 1.1em;
-    color: black;
 }
 
 .container {
@@ -116,15 +119,14 @@
     }
 
 #submit-button {
-    background-color: #007bff;
-    color: white;
+    background-color: #0D6E76;
+    color: #FFFFFF;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
-  
     opacity: 0;
     display: none;
 }
@@ -135,7 +137,7 @@
     }
 
     #submit-button:hover {
-        background-color: #0056b3;
+        background-color: #21828A;
     }
 
 .container::after {
@@ -148,7 +150,7 @@
     bottom: 20%;
     left: 50%;
     transform: translateX(-50%);
-    color: darkblue;
+    color: #007ACC;
 }
 
 .container:hover::after {
@@ -158,4 +160,19 @@
 
 .container:hover > img {
     filter: blur(5px);
+}
+
+#navButton {
+    background-color: #555555;
+    color: #E0E0E0;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.dropdown-menu {
+    background-color: #555555;
+}
+
+.dropdown-item {
+    color: #E0E0E0;
 }
