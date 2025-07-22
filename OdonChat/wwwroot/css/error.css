@@ -4,13 +4,13 @@
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background-color: #f0f2f5;
-    color: #333;
+    background-color: #1A1A1A;
+    color: #E0E0E0;
     text-align: center;
 }
 
 .error-container {
-    background-color: #fff;
+    background-color: #2D2D2D;
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -25,7 +25,7 @@
 }
 
 h1 {
-    color: #e74c3c; 
+    color: #FF5252;
     margin-bottom: 15px;
     font-size: 2em;
 }
@@ -38,8 +38,8 @@ p {
 
 .home-button {
     display: inline-block;
-    background-color: #007bff;
-    color: #fff;
+    background-color: #0D6E76;
+    color: #FFFFFF;
     padding: 12px 25px;
     border-radius: 5px;
     text-decoration: none;
@@ -48,7 +48,8 @@ p {
 }
 
     .home-button:hover {
-        background-color: #0056b3;
+        background-color: #21828A;
+        color: #FFFFFF;
     }
 
 @media (max-width: 600px) {
