@@ -104,7 +104,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 20px;
     background-color: #121212;
 }
 
@@ -114,6 +113,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    padding: 10px;
 }
 
 .input-chat {
@@ -164,12 +164,29 @@ body {
     text-align: center;
 }
 
-p.message-sended {
+p.message-sent {
+    position: relative;
     text-align: end;
     margin: 5px 0 0 auto;
     background-color: #005C4B;
     color: #E0E0E0;
 }
+
+    p.message-sent::after {
+        display: inline-block;
+        content: '';
+        position: relative;
+        margin: 0;
+        padding: 0;
+        top: -3px; /* Altezza della freccia */
+        right: -12.5px; /* Sposta la freccia fuori dal bordo destro */
+        width: 0;
+        height: 0;
+        /* Crea un triangolo puntato a destra */
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 10px solid #005C4B; /* Il colore deve corrispondere allo sfondo del messaggio */
+    }
 
 p.message-received {
     text-align: start;
@@ -177,6 +194,21 @@ p.message-received {
     background-color: #3E3E42;
     color: #E0E0E0;
 }
+
+    p.message-received::before {
+        content: '';
+        position: relative;
+        display: inline-block;
+        top: -3px;
+        left: -12.5px;
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-right: 10px solid #3E3E42;
+        margin: 0;
+        padding: 0;
+    }
 
 .message-input-container p {
     max-width: 50%;

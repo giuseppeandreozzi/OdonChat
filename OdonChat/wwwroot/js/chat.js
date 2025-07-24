@@ -125,7 +125,7 @@ function sendMessage(el) {
     connection.invoke("SendMessage", userSelected.textContent, inputChat.value, new Date().toJSON()).then(() => {
         const divMessages = document.querySelector(".show-chat .messages");
         const p = document.createElement("p");
-        p.classList.add("message-sended");
+        p.classList.add("message-sent");
         p.textContent = inputChat.value;
         divMessages.appendChild(p);
         inputChat.value = "";

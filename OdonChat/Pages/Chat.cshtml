@@ -47,7 +47,7 @@
                 <div class="message-input-container" id="@el.id">
                     <div class="messages">
                         @foreach (var message in el.messages) {
-                            <p class="@(message.userFrom == User.FindFirst("username").Value ? "message-sended" : "message-received")">@message.text</p>
+                            <p class="@(message.userFrom == User.FindFirst("username").Value ? "message-sent" : "message-received")">@message.text</p>
                         }
                     </div>
                     <div class="input-chat">
