@@ -487,3 +487,4 @@ $RECYCLE.BIN/
 *.csproj
 *.json
 OdonChat/wwwroot/lib/
+*.config

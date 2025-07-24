@@ -1,6 +1,7 @@
-using System.Diagnostics;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Diagnostics;
 
 namespace OdonChat.Pages {
 	[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -17,7 +18,11 @@ namespace OdonChat.Pages {
 		}
 
 		public void OnGet() {
-			_logger.Log(LogLevel.Information, "Error - " + Code);
+			//Getting the original URL
+			var feauter = Request.HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
+			var path = feauter?.OriginalPath;
+
+			_logger.LogWarning($"Error {Code} - Original URL: {path}");
 		}
 	}
 
