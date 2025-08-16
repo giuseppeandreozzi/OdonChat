@@ -26,7 +26,7 @@ namespace OdonChat.Hubs {
 			});
 		}
 
-		public async Task SendMessage(string usernameTo, string textMessage, string timeMessage) {
+		public async Task SendMessage(string usernameTo, string textMessage, byte[] img, string timeMessage) {
 			OdonChat.model.User userFrom = _users.AsQueryable().Where(u => u.username == Context.User.FindFirst("username").Value).FirstOrDefault();
 			Chat chat = new Chat();
 
@@ -36,6 +36,7 @@ namespace OdonChat.Hubs {
 				chat.messages.Add(new Message {
 					userFrom = userFrom.username,
 					text = textMessage,
+					img = img,
 					time = DateTime.Parse(timeMessage)
 				});
 
@@ -48,6 +49,7 @@ namespace OdonChat.Hubs {
 				messages.Add(new Message {
 					userFrom = userFrom.username,
 					text = textMessage,
+					img = img,
 					time = DateTime.Parse(timeMessage)
 				});
 				chat.messages = messages;
@@ -75,7 +77,8 @@ namespace OdonChat.Hubs {
 				chatId = chat.id.ToString(),
 				usernameFrom = userFrom.username,
 				userFromId = userFrom.id.ToString(),
-				avatar = Convert.ToBase64String(userFrom.image)
+				avatar = Convert.ToBase64String(userFrom.image),
+				imgbase64 = Convert.ToBase64String(img)
 			});
 
 		} //end SendMessage

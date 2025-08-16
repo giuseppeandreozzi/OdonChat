@@ -47,10 +47,29 @@
                 <div class="message-input-container" id="@el.id">
                     <div class="messages">
                         @foreach (var message in el.messages) {
-                            <p class="@(message.userFrom == User.FindFirst("username").Value ? "message-sent" : "message-received")">@message.text</p>
+                            <div class="message @(message.userFrom == User.FindFirst("username").Value ? "message-sent" : "message-received")">
+                                @if(message.img != null) {
+                                    <img src="data:image/*;base64,@Convert.ToBase64String(message.img)" class="img-chat"/>
+                                }
+
+                                @if(message.text != null && message.text != "") {
+                                    @if (message.img != null) {
+                                        <hr class="separator">
+                                    }
+                                    <span class="text-message">@message.text</span>
+                                }
+                                
+                            </div>
                         }
                     </div>
                     <div class="input-chat">
+                        <div class="popup">
+                            <p><span>Preview image</span> <i class="fa-regular fa-x" onclick="hidePopupImg()"></i></p>
+                            <hr class="separator"/>
+                            <img class="img-preview"/>
+                        </div>
+                        <input type="file" id="file-upload" accept="image/*" onchange="showPopupImg(this)">
+                        <label for="file-upload" class="upload-button fa-solid fa-paperclip"></label>
                         <input type="text" class="message-input" placeholder="Write a message...">
                         <button class="send-button" onclick="sendMessage(this.parentElement.parentElement)">Send</button>
                     
@@ -62,6 +81,8 @@
 </div>
 
 @section JS{
+    <script src="https://kit.fontawesome.com/3b920a99ab.js" crossorigin="anonymous"></script>
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/signalr/dist/browser/signalr-protocol-msgpack.js"></script>
     <script src="~/js/chat.js"></script>
 }

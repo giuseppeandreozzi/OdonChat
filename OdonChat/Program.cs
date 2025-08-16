@@ -16,7 +16,12 @@ builder.Services.AddRazorPages().AddMvcOptions(options => {
 
 builder.Services.AddSignalR(e => {
 	e.EnableDetailedErrors = true;
+}).AddMessagePackProtocol();
+
+builder.Services.Configure<HubOptions>(options => {
+	options.MaximumReceiveMessageSize = null;
 });
+
 builder.Services.AddSingleton<IMongoDatabase>(client.GetDatabase("OdonChat"));
 builder.Services.AddSingleton<IUserIdProvider, UsernameBasedUserIdProvider>();
 

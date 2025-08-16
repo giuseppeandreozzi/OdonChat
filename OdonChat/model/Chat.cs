@@ -10,6 +10,7 @@ namespace OdonChat.model {
 	public class Message {
 		public string userFrom { get; set; }
 		public string text { get; set; }
+		public byte[] img{ get; set; }
 		public DateTime time { get; set; }
 	}
 }
