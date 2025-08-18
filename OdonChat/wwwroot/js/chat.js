@@ -76,11 +76,16 @@ connection.on("ReceiveUser", (user) => {
     }
 
     const li = document.createElement('li');
-    const a = document.createElement('a');
-    a.classList.add('dropdown-item');
-    a.textContent = user.username;
-    a.href = '#'; 
-    a.addEventListener('click', (event) => {
+    const span = document.createElement('span');
+    const img = document.createElement('img');
+    span.classList.add("user-result");
+    li.classList.add('dropdown-item');
+    img.classList.add('avatar');
+    img.src = "data:image/*;Base64," + user.avatar;
+    img.onerror = "this.src='img/avatar.png'";
+    li.appendChild(img);
+    span.textContent = user.username;
+    li.addEventListener('click', (event) => {
         event.preventDefault(); 
 
         searchResultsUl.classList.remove('show');
@@ -90,7 +95,7 @@ connection.on("ReceiveUser", (user) => {
         searchResultsUl.innerHTML = '';
         searchInput.value = '';
     });
-    li.appendChild(a);
+    li.appendChild(span);
     searchResultsUl.appendChild(li);
     searchResultsUl.classList.add('show'); 
 }); //end ReceiveUser
