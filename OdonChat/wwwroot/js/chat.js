@@ -20,11 +20,12 @@ connection.on("ReceiveMessage", (message) => {
     var divMessages = document.querySelector("[id='" + message.chatId + "'] .messages");
     var card = document.querySelector("#card-" + message.chatId);
 
+    // if card is null maybe the user doesn't exist on the chat list of the destination user of the message
     if (card == null) {
-        card = document.querySelector("#card-" + message.userFromId);
+        card = document.querySelector("#card-" + message.userFromId); //I search again for the card element because it could have a different type of id
         divMessages = document.querySelector("[id='" + message.userFromId + "'] .messages");
 
-        if (card == null) { 
+        if (card == null) { //if card is still null then it means that a new chat must be created
             createChat(message.userFromId, message.usernameFrom, message.avatar);
             card = document.querySelector("#card-" + message.userFromId);
             divMessages = document.querySelector("[id='" + message.userFromId + "'] .messages");
@@ -33,6 +34,7 @@ connection.on("ReceiveMessage", (message) => {
 
     card.style.background = "yellow";
 
+    // Creating the message to show in the chat
     const divMsg = document.createElement("div");
     divMsg.classList.add("message");
     divMsg.classList.add("message-received");
@@ -59,12 +61,14 @@ connection.on("ReceiveMessage", (message) => {
     divMessages.appendChild(divMsg);
 });
 
+// Receive the result of the search user feature
 connection.on("ReceiveUser", (user) => {
     const searchInput = document.getElementById('searchInput');
     const searchResultsUl = document.getElementById('searchResults'); 
     const inputGroup = searchInput.closest('.input-group'); 
     searchResultsUl.innerHTML = '';
 
+    //if no user was found
     if (user == null) {
         const li = document.createElement('li');
         const noResultsDiv = document.createElement('div');
@@ -75,6 +79,7 @@ connection.on("ReceiveUser", (user) => {
         return;
     }
 
+    //creating the elements to show for the result
     const li = document.createElement('li');
     const span = document.createElement('span');
     const img = document.createElement('img');
@@ -109,6 +114,7 @@ connection.start().then(function () {
 var input = document.querySelector("#searchInput");
 var button = document.querySelector("#searchButton");
 
+// allow submit the search user feature with the Enter key
 input.addEventListener('keypress', function (event) {
     if (event.key === 'Enter' || event.keyCode === 13) {
         event.preventDefault();
@@ -116,6 +122,7 @@ input.addEventListener('keypress', function (event) {
     }
 });
 
+// event for the submit button to search the user
 button.addEventListener("click", (event) => {
     event.preventDefault();
     connection.invoke("SearchUser", input.value).catch(function (err) {
@@ -124,36 +131,16 @@ button.addEventListener("click", (event) => {
 });
 
 
-/*const buttonSendMessage = document.querySelectorAll(".send-button");
-
-buttonSendMessage.addEventListener("click", (event) => {
-    event.preventDefault();
-    const inputChat = document.querySelector(".message-input");
-    const userSelected = document.querySelector(".selected .user-name");
-
-    connection.invoke("SendMessage", userSelected.textContent, inputChat.value, new Date().toJSON()).then(() => {
-        const divMessages = document.querySelector(".messages");
-        const p = document.createElement("p");
-        p.classList.add("message-sended");
-        p.textContent = inputChat.value;
-        divMessages.appendChild(p);
-        inputChat.value = "";
-    }).catch(function (err) {
-        return console.error(err.toString());
-    });
-});*/
-
 //when a user send a message to other user
 async function sendMessage(el) {
     const inputChat = document.querySelector(".show-chat .message-input");
     const userSelected = document.querySelector(".selected .user-name");
 
     const inputImg = document.querySelector('#file-upload');
-    const img = inputImg.files[0]; 
+    const imgFile = inputImg.files[0]; 
 
     //Encoding img to Base64
-    var imgByte = (img != null) ? await img.arrayBuffer() : null;
-    var imgBase64 = base64ArrayBuffer(imgByte);
+    var imgByte = (imgFile != null) ? await imgFile.arrayBuffer() : null;
 
     connection.invoke("SendMessage", userSelected.textContent, inputChat.value, new Uint8Array(imgByte), new Date().toJSON()).then(() => {
         const divMessages = document.querySelector(".show-chat .messages");
@@ -163,11 +150,15 @@ async function sendMessage(el) {
 
         if (imgByte != null) { //if the message contain an image
             const img = document.createElement("img");
-            img.src = "data:image/*;base64," + imgBase64;
+            img.src = URL.createObjectURL(imgFile);
             img.classList.add("img-chat");
             divMsg.appendChild(img);
+
+            //hiding the preview image popup
+            hidePopupImg();
         }
 
+        //if the message contains a text 
         if (inputChat.value != null && inputChat.value != "") {
             if (imgByte != null) { //adding separator between image and text
                 const hr = document.createElement("hr");
@@ -183,15 +174,19 @@ async function sendMessage(el) {
         divMessages.appendChild(divMsg);
         inputChat.value = "";
         inputImg.value = "";
+
     }).catch(function (err) {
         return console.error(err.toString());
     });
 }
+
+// Showing chat when the user select one on the left bar
 function showChat(el) {
     var id = el.id.substr(5);
     const oldUserSelected = document.querySelector(".sidebar .selected");
     const divToHide = document.querySelector("div.show-chat");
     const divToShow = document.getElementById(id);
+   
 
     if(divToHide != null)
         divToHide.classList.remove("show-chat");
@@ -200,10 +195,14 @@ function showChat(el) {
         oldUserSelected.classList.remove("selected");
 
     el.style.removeProperty("background-color");
+
     divToShow.classList.add("show-chat");
+    const divMessages = document.querySelector("div.show-chat .messages");
+    divMessages.scrollTop = divMessages.scrollHeight;
     el.classList.add("selected");
 }
 
+// creating a chat for the destination user that an user choose from the results of the search user feature
 function createChat(userId, username, avatar) {
     const divCard = document.createElement('div');
     const img = document.createElement('img');
@@ -244,7 +243,7 @@ function createChat(userId, username, avatar) {
 
     const button = document.createElement("button");
 
-    //pressing Enter inside the input to send a message
+    // allow pressing Enter to send a message
     input.addEventListener('keypress', function (event) {
         if (event.key === 'Enter' || event.keyCode === 13) {
             event.preventDefault();
@@ -297,63 +296,6 @@ function createChat(userId, username, avatar) {
     chatArea.appendChild(divChat);
 }
 
-
-//From here: https://gist.github.com/jonleighton/958841
-/*function base64ArrayBuffer(arrayBuffer) {
-    if (arrayBuffer == null)
-        return null;
-
-    var base64 = ''
-    var encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-
-    var bytes = new Uint8Array(arrayBuffer)
-    var byteLength = bytes.byteLength
-    var byteRemainder = byteLength % 3
-    var mainLength = byteLength - byteRemainder
-
-    var a, b, c, d
-    var chunk
-
-    // Main loop deals with bytes in chunks of 3
-    for (var i = 0; i < mainLength; i = i + 3) {
-        // Combine the three bytes into a single integer
-        chunk = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2]
-
-        // Use bitmasks to extract 6-bit segments from the triplet
-        a = (chunk & 16515072) >> 18 // 16515072 = (2^6 - 1) << 18
-        b = (chunk & 258048) >> 12 // 258048   = (2^6 - 1) << 12
-        c = (chunk & 4032) >> 6 // 4032     = (2^6 - 1) << 6
-        d = chunk & 63               // 63       = 2^6 - 1
-
-        // Convert the raw binary segments to the appropriate ASCII encoding
-        base64 += encodings[a] + encodings[b] + encodings[c] + encodings[d]
-    }
-
-    // Deal with the remaining bytes and padding
-    if (byteRemainder == 1) {
-        chunk = bytes[mainLength]
-
-        a = (chunk & 252) >> 2 // 252 = (2^6 - 1) << 2
-
-        // Set the 4 least significant bits to zero
-        b = (chunk & 3) << 4 // 3   = 2^2 - 1
-
-        base64 += encodings[a] + encodings[b] + '=='
-    } else if (byteRemainder == 2) {
-        chunk = (bytes[mainLength] << 8) | bytes[mainLength + 1]
-
-        a = (chunk & 64512) >> 10 // 64512 = (2^6 - 1) << 10
-        b = (chunk & 1008) >> 4 // 1008  = (2^6 - 1) << 4
-
-        // Set the 2 least significant bits to zero
-        c = (chunk & 15) << 2 // 15    = 2^4 - 1
-
-        base64 += encodings[a] + encodings[b] + encodings[c] + '='
-    }
-
-    return base64
-}*/
-
 function showPopupImg(inputFile) {
     const divPopup = document.querySelector("div.show-chat .popup");
     const imgPreview = document.querySelector("div.show-chat .img-preview");
@@ -362,7 +304,6 @@ function showPopupImg(inputFile) {
         imgPreview.src = URL.createObjectURL(inputFile.files[0]);
         divPopup.style.display = 'block';
     }
-
 }
 
 function hidePopupImg() {
@@ -370,7 +311,4 @@ function hidePopupImg() {
     const imgPreview = document.querySelector("div.show-chat .img-preview");
     imgPreview.src = "";
     divPopup.style.display = 'none';
-
-
-
 }
