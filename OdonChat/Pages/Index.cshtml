@@ -62,7 +62,7 @@
                         <input type="date" class="form-control" id="dob" asp-for="user.birthDate" required>
                         <span asp-validation-for="user.birthDate" class="error"></span>
                     </div>
-
+                    <div asp-validation-summary="All" class="error"></div>
                     <div class="d-grid">
                         <button type="submit" class="btn btn-success btn-lg login-button">Sign up</button>
                     </div>
@@ -71,7 +71,3 @@
         </div>
     </div>
 </div>
-
-@section JS{
-    <script src="js/index.js"></script>
-}
